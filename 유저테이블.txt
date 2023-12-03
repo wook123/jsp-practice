@@ -1,0 +1,13 @@
+--회원번호 관리객체
+create sequence seq_myUser_idx;
+
+--회원테이블
+create table myUser(
+	idx number(3) primary key,
+	name varchar2(100) not null,
+	id varchar2(100) not null unique,
+	pwd varchar2(100) not null
+);
+
+--커밋
+commit;

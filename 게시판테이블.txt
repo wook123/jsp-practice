@@ -1,0 +1,67 @@
+--일련번호
+CREATE SEQUENCE SEQ_BOARD_IDX;
+
+--게시판 DB
+CREATE TABLE BOARD(
+	IDX NUMBER(3) PRIMARY KEY, --게시판 일련번호
+	NAME VARCHAR2(100) NOT NULL, --작성자
+	SUBJECT VARCHAR2(255) NOT NULL, --게시글 제목
+	CONTENT CLOB, --내용
+	PWD VARCHAR2(100), --비밀번호
+	IP VARCHAR2(100), --IP
+	REGDATE DATE, --작성일자
+	READHIT NUMBER(3) DEFAULT 0, --조회수
+	REF NUMBER(3), --기준글 번호(댓글을 달기 위한 메인글)
+	STEP NUMBER(3), --댓글순서(수직적)
+	DEPTH NUMBER(3) --댓글의 깊이(대댓글)
+);
+
+--샘플데이터 추가(메인글1)
+INSERT INTO BOARD VALUES(SEQ_BOARD_IDX.NEXTVAL,
+			 '일길동',
+			 '내가 일등!',
+			 '동해물과 백두산이',
+			 '1234',
+			 '192.0.0.1',
+			 SYSDATE,
+			 0,
+			 SEQ_BOARD_IDX.CURRVAL,
+			 0,
+			 0);
+
+
+--댓글
+INSERT INTO BOARD VALUES(
+			SEQ_BOARD_IDX.NEXTVAL,
+			'이길동',
+			'난 2등',
+			'마르고 닳도록',
+			'1234',
+			'192.0.0.2',
+			SYSDATE,
+			0,
+			1,
+			1,
+			1
+);
+
+--댓글의 댓글
+INSERT INTO BOARD VALUES(
+			SEQ_BOARD_IDX.NEXTVAL,
+			'삼길동',
+			'나는 3등이여',
+			'AAAAAAAAAAA',
+			'1234',
+			'192.0.0.3',
+			SYSDATE,
+			0,
+			1,
+			2,
+			2
+);
+
+COMMIT;
+
+--페이징 처리를 위한 커리문
+select * from (select rank() over(order by ref desc, step) no,b.*
+from board b) where no between 1 and 10;
