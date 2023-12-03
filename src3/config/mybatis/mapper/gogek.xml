@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gogek">
+<!-- 절대로 ;쓰지 말것 -->
+<select id="gogek_list" resultType="vo.GogekVO">
+	select * from gogek 
+</select>
+
+<select id="gogek_select" resultType="vo.GogekVO" parameterType="String">
+	select * from gogek where goaddr like '%'||#{goaddr}||'%'
+
+</select>
+ 
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

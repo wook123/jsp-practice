@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="s">
+<!-- 절대로 ;쓰지 말것 -->
+<select id="sawon_list" resultType="vo.SawonVO">
+	select * from sawon 
+</select>
+	
+ <select id="sawon_list_no" resultType="vo.SawonVO" parameterType="int">
+ 	select * from sawon where deptno = #{deptno}
+ </select>
+  
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
